@@ -1,6 +1,12 @@
 name: Node Lint
-run-name: Lint nodejs app
-on: [push]
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "calculadora/**"
+      - ".github/workflows/lint.yml"
+
 jobs:
   lint:
     runs-on: [self-hosted]
@@ -8,7 +14,7 @@ jobs:
       - name: Descargar el repo
         uses: actions/checkout@v4
 
-      - name: Configurar Nodejs
+      - name: Configurar Node.js
         uses: actions/setup-node@v4
         with:
           node-version: "22.x"
@@ -20,6 +26,3 @@ jobs:
       - name: Ejecutar lint
         working-directory: ./calculadora
         run: npm run lint
-
-        on:
-  workflow_dispatch:
